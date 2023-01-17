@@ -13,21 +13,28 @@ const goSide = keyframes`
 
 export const FormTag = styled.form`
   position: relative;
+  animation: ${goSide} 0.7s forwards;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 50vh;
-  max-height: 474px;
-  border: 1px 1px 1px black;
 
-  animation: ${goSide} 0.7s forwards;
+  height: 60vh;
+  max-height: 474px;
 
   border: solid 2px var(--grey_input);
   border-radius: 7px;
-  padding: 7px;
+
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 5px;
+  }
 
   & > h2 {
+    text-align: center;
     font-size: 18px;
+
     margin-bottom: 10px;
   }
 
@@ -35,6 +42,7 @@ export const FormTag = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     width: min-content;
     height: 50px;
 
@@ -48,21 +56,29 @@ export const FormTag = styled.form`
     }
 
     & > input {
-      background-color: var(--grey_input);
-      border-radius: 7px;
+      border-bottom: solid 2px var(--grey_input);
       padding: 6px;
-      width: 260px;
+
       font-size: 14px;
+
+      width: 260px;
+
+      :focus {
+        outline: none;
+      }
     }
   }
   & > button {
-    padding: 10px;
     background-color: var(--green_btn);
-    width: 260px;
     color: white;
+
     font-size: 20px;
     font-weight: 600;
+
     margin-top: 15px;
+    padding: 10px;
+
+    width: 260px;
 
     :hover {
       background-color: var(--green_btn_hover);

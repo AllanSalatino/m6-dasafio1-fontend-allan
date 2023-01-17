@@ -1,21 +1,22 @@
 import { createContext, useState, ReactNode } from "react";
+import api from "../services/api";
 
 interface ICalculatorProvider {
   children: ReactNode;
 }
 
 export interface ICalculator {
-  installment_value: number;
-  interest_rate: number;
-  number_installments: number;
+  amount: number;
+  installments: number;
+  mdr: number;
+  days?: string | undefined;
 }
 
 interface ICalculatorContext {
   values: number[];
   setValues: React.Dispatch<React.SetStateAction<number[]>>;
-  onSubmitCalculate: (data: ICalculator) => ICalculator;
-  windowWidth: number;
-  setWindowWidth: React.Dispatch<React.SetStateAction<number>>;
+  onSubmitCalculate: (data: ICalculator) => {};
+  requisitionValues: (data: ICalculator) => ICalculator;
 }
 
 export const CalculatorContext = createContext<ICalculatorContext>(
@@ -24,33 +25,52 @@ export const CalculatorContext = createContext<ICalculatorContext>(
 
 export const CalculatorProvider = ({ children }: ICalculatorProvider) => {
   const [values, setValues] = useState<number[]>([]);
-  const [windowWidth, setWindowWidth] = useState<number>(0);
 
+  // Função responsavel por receber os valores de input e tratalos.
   const onSubmitCalculate = (data: ICalculator) => {
-    const { installment_value, interest_rate, number_installments } = data;
+    const { amount, installments, mdr, days } = data;
 
-    let resultMxR = 0;
-    let resultVxMxR = 0;
-    let arrayResults = [];
-    let total = 0;
+    // Transformando a string da variavel "days" em um array de numeros.
+    let arrayTransformation = [];
+    let dataUpdated = {};
 
-    for (let i = 1; i <= number_installments; i++) {
-      resultMxR = i * (interest_rate / 100);
-      resultVxMxR = installment_value - resultMxR * installment_value;
-      arrayResults.push(resultVxMxR);
-      total += resultVxMxR;
+    // Se o campo days for preenchido, será criado um objeto com a key "days", caso contrario, não.
+    if (days) {
+      for (let i = 0; i < days.split(",").length; i++) {
+        arrayTransformation.push(parseInt(days.split(",")[i]));
+      }
+
+      dataUpdated = {
+        amount: amount,
+        mdr: mdr,
+        installments: installments,
+        days: arrayTransformation,
+      };
+    } else {
+      dataUpdated = {
+        amount: amount,
+        mdr: mdr,
+        installments: installments,
+      };
     }
-    arrayResults.push(total);
 
-    setValues(arrayResults);
+    requisitionValues(dataUpdated);
+    return dataUpdated;
+  };
+
+  // Função responsavel por fazer requisição de post enviando os dados tratados.
+  const requisitionValues = (data: any) => {
+    api
+      .post("/", data)
+      .then((response) => {
+        setValues(response.data);
+      })
+      .catch((erro) => {
+        console.error("Falha na requisição:", erro);
+      });
 
     return data;
   };
-
-  const myTimer = () => {
-    setWindowWidth(window.innerWidth);
-  };
-  setInterval(myTimer as any, 500);
 
   return (
     <CalculatorContext.Provider
@@ -58,8 +78,7 @@ export const CalculatorProvider = ({ children }: ICalculatorProvider) => {
         onSubmitCalculate,
         values,
         setValues,
-        windowWidth,
-        setWindowWidth,
+        requisitionValues,
       }}
     >
       {children}

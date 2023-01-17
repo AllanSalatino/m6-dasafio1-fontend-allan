@@ -67,10 +67,6 @@ const GlobalStyle = createGlobalStyle`
         width: 100vw;
     }
 
-    input, select{
-        background-color: var(--white_input)
-    }
-
     button{
 		cursor: pointer;
 		background-color: transparent;
