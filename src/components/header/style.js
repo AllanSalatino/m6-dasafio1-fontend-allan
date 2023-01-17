@@ -13,14 +13,17 @@ const dropDown = keyframes`
 
 export const HeaderTag = styled.header`
   position: relative;
+  animation: ${dropDown} 0.7s forwards;
+
   display: flex;
   align-items: center;
-  width: 100vw;
-  min-height: 80px;
+
   background-color: var(--black_header);
+
   margin-bottom: 25px;
 
-  animation: ${dropDown} 0.7s forwards;
+  min-height: 80px;
+  width: 100vw;
 
   & > h1 {
     color: white;

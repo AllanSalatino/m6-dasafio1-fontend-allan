@@ -6,9 +6,13 @@ export const Body = styled.body`
   align-items: center;
 `;
 
-export const Main = styled.body`
+export const Main = styled.main`
   display: flex;
-  width: 70vw;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+
+  @media (min-width: 768px) {
+    width: 70vw;
+    flex-direction: row;
+  }
 `;

@@ -14,7 +14,6 @@ const Calculator = () => {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm<ICalculator>({
     resolver: yupResolver(calculateSchema),
@@ -22,35 +21,44 @@ const Calculator = () => {
 
   return (
     <FormTag noValidate={true} onSubmit={handleSubmit(onSubmitCalculate)}>
-      <h2>Calculadora de Antecipação</h2>
+      <h2>Simule sua Antecipação</h2>
       <div>
-        <label>Valor da parcela:</label>
+        <label>Valor total da venda (em centavos):</label>
         <input
           type="text"
-          placeholder="Digite o valor da parcela..."
-          {...register("installment_value")}
+          placeholder="Digite o valor total..."
+          {...register("amount")}
         />
-        <span>{errors?.installment_value?.message}</span>
+        <span>{errors?.amount?.message}</span>
       </div>
       <div>
-        <label>Taxa de Juros:</label>
+        <label>MDR (taxa de juros):</label>
         <input
           type="text"
           placeholder="Digite a taxa de juros..."
-          {...register("interest_rate")}
+          {...register("mdr")}
           required
         />
-        <span>{errors?.interest_rate?.message}</span>
+        <span>{errors?.mdr?.message}</span>
       </div>
       <div>
         <label>Quantidade de Parcelas:</label>
         <input
           type="text"
           placeholder="Digite a quantidade de parcelas..."
-          {...register("number_installments")}
+          {...register("installments")}
           required
         />
-        <span>{errors?.number_installments?.message}</span>
+        <span>{errors?.installments?.message}</span>
+      </div>
+      <div>
+        <label>Dias para antecipação:</label>
+        <input
+          type="text"
+          placeholder="Ex: 30, 60, 90..."
+          {...register("days")}
+          required={false}
+        />
       </div>
 
       <button type="submit">Calcular</button>
