@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { FormTag } from "./style";
 
 const Calculator = () => {
-  const { onSubmitCalculate, setValue } = useContext(CalculatorContext);
+  const { onSubmitCalculate } = useContext(CalculatorContext);
 
   const {
     register,
@@ -29,8 +29,8 @@ const Calculator = () => {
           type="text"
           placeholder="Digite o valor da parcela..."
           {...register("installment_value")}
-          required
         />
+        <span>{errors?.installment_value?.message}</span>
       </div>
       <div>
         <label>Taxa de Juros:</label>
@@ -40,24 +40,7 @@ const Calculator = () => {
           {...register("interest_rate")}
           required
         />
-      </div>
-      <div>
-        <label>Dia do Vencimento:</label>
-        <input
-          type="text"
-          placeholder="Digite o dia do vencimento..."
-          {...register("due_date")}
-          required
-        />
-      </div>
-      <div>
-        <label>Data de Quitação:</label>
-        <input
-          type="text"
-          placeholder="Digite a data de quitação..."
-          {...register("discharge_date")}
-          required
-        />
+        <span>{errors?.interest_rate?.message}</span>
       </div>
       <div>
         <label>Quantidade de Parcelas:</label>
@@ -67,6 +50,7 @@ const Calculator = () => {
           {...register("number_installments")}
           required
         />
+        <span>{errors?.number_installments?.message}</span>
       </div>
 
       <button type="submit">Calcular</button>
