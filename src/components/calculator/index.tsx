@@ -1,67 +1,45 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { calculateSchema } from "../../validations/calculateSchema";
-import {
-  CalculatorContext,
-  ICalculator,
-} from "../../context/calculatorContext";
-import { useContext } from "react";
+import { CalculatorContext } from "../../context/calculatorContext";
+import { useContext, useEffect, useState } from "react";
 import { FormTag } from "./style";
 
 const Calculator = () => {
-  const { onSubmitCalculate } = useContext(CalculatorContext);
-
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ICalculator>({
-    resolver: yupResolver(calculateSchema),
-  });
+    onSubmitCalculate,
+    amount,
+    installments,
+    mdr,
+    handleChangeAmount,
+    handleChangeInstallments,
+    handleChangeMdr,
+  } = useContext(CalculatorContext);
+
+  useEffect(() => {
+    if (amount && installments && mdr) {
+      let data = {
+        amount: amount,
+        installments: installments,
+        mdr: mdr,
+      };
+      onSubmitCalculate(data);
+    }
+  }, [amount, installments, mdr]);
 
   return (
-    <FormTag noValidate={true} onSubmit={handleSubmit(onSubmitCalculate)}>
+    <FormTag noValidate={true}>
       <h2>Simule sua Antecipação</h2>
       <div>
-        <label>Valor total da venda (em centavos):</label>
-        <input
-          type="text"
-          placeholder="Digite o valor total..."
-          {...register("amount")}
-        />
-        <span>{errors?.amount?.message}</span>
+        <label>Informe o valor da venda *</label>
+        <input type="text" required onChange={handleChangeAmount} />
       </div>
       <div>
-        <label>MDR (taxa de juros):</label>
-        <input
-          type="text"
-          placeholder="Digite a taxa de juros..."
-          {...register("mdr")}
-          required
-        />
-        <span>{errors?.mdr?.message}</span>
+        <label>Em quantas parcelas *</label>
+        <input type="text" required onChange={handleChangeInstallments} />
+        <p>Máximo de 12 parcelas</p>
       </div>
       <div>
-        <label>Quantidade de Parcelas:</label>
-        <input
-          type="text"
-          placeholder="Digite a quantidade de parcelas..."
-          {...register("installments")}
-          required
-        />
-        <span>{errors?.installments?.message}</span>
+        <label>Informe o percentual de MDR *</label>
+        <input type="text" required onChange={handleChangeMdr} />
       </div>
-      <div>
-        <label>Dias para antecipação:</label>
-        <input
-          type="text"
-          placeholder="Ex: 30, 60, 90..."
-          {...register("days")}
-          required={false}
-        />
-      </div>
-
-      <button type="submit">Calcular</button>
     </FormTag>
   );
 };

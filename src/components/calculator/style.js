@@ -13,26 +13,15 @@ const goSide = keyframes`
 
 export const FormTag = styled.form`
   position: relative;
-  animation: ${goSide} 0.7s forwards;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   height: 60vh;
-  max-height: 474px;
-
-  border: solid 2px var(--grey_input);
-  border-radius: 7px;
-
-  padding: 20px;
-
-  @media (max-width: 768px) {
-    padding: 5px;
-  }
+  max-height: 350px;
 
   & > h2 {
-    text-align: center;
     font-size: 18px;
 
     margin-bottom: 10px;
@@ -45,8 +34,10 @@ export const FormTag = styled.form`
 
     width: min-content;
     height: 50px;
+    gap: 5px;
 
     & > label {
+      color: #404040;
       font-size: 14px;
     }
 
@@ -56,16 +47,21 @@ export const FormTag = styled.form`
     }
 
     & > input {
-      border-bottom: solid 2px var(--grey_input);
-      padding: 6px;
+      padding: 10px;
 
       font-size: 14px;
 
       width: 260px;
 
       :focus {
-        outline: none;
+        outline: auto;
+        outline-color: #3991ffc4;
       }
+    }
+
+    & > p {
+      font-size: 12px;
+      color: grey;
     }
   }
   & > button {

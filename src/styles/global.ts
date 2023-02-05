@@ -54,15 +54,10 @@ const GlobalStyle = createGlobalStyle`
 				font-family: "Montserrat";
     }
 
-    :root{
-        --black_header: #02181F;
-        --black_description: #1C1C1C;
-        --grey_input: #D9D9D9;
-        --green_btn: #0E4800;
-        --green_btn_hover: #1A8300;
-    }
-
     body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 100vh;
         width: 100vw;
     }

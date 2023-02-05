@@ -14,7 +14,7 @@ const CalculationResult = () => {
             {index == 0 && <h2>Você Receberá:</h2>}
 
             <Result>
-              <p>Em {key} dias:</p>
+              {key == "1" ? <p>Em amanhã:</p> : <p>Em {key} dias:</p>}
               <span>
                 {(arrValues[index] / 1000).toLocaleString("pt-BR", {
                   style: "currency",
