@@ -21,8 +21,11 @@ export const FormTag = styled.form`
   height: 60vh;
   max-height: 350px;
 
+  margin-left: 50px;
+
   & > h2 {
-    font-size: 18px;
+    font-size: 22px;
+    color: #404040;
 
     margin-bottom: 10px;
   }
@@ -52,6 +55,9 @@ export const FormTag = styled.form`
       font-size: 14px;
 
       width: 260px;
+
+      border: 1px solid #b9b9b9;
+      border-radius: 7px;
 
       :focus {
         outline: auto;

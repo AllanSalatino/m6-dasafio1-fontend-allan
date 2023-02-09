@@ -8,21 +8,18 @@ const CalculationResult = () => {
   const arrValues = Object.values(values);
   return (
     <Container>
+      <h2>Você Receberá:</h2>
       {arrKeys.map((key, index) => {
         return (
-          <div key={index}>
-            {index == 0 && <h2>Você Receberá:</h2>}
-
-            <Result>
-              {key == "1" ? <p>Em amanhã:</p> : <p>Em {key} dias:</p>}
-              <span>
-                {(arrValues[index] / 1000).toLocaleString("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                })}
-              </span>
-            </Result>
-          </div>
+          <Result>
+            {key == "1" ? <p>Amanhã:</p> : <p>Em {key} dias:</p>}
+            <span>
+              {(arrValues[index] / 1000).toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </span>
+          </Result>
         );
       })}
     </Container>

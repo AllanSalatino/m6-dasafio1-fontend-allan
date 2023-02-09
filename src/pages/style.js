@@ -13,11 +13,10 @@ export const Main = styled.main`
   justify-content: space-between;
   align-items: center;
 
-  max-width: 600px;
+  max-width: 650px;
 
   border: 1px solid #d9d9d9;
   border-radius: 6px;
-  padding: 50px;
 
   @media (min-width: 768px) {
     width: 70vw;
